@@ -32,21 +32,10 @@ class ViewController: UIViewController
             stack.addArrangedSubview(row)
             
             /*
-            And now for the interesting part:
-            A λ object is used as the target object. Because the initializer of the λ class has a single closure as an attribute,
-            we can use trailing closure syntax. The result is a clean syntax that has only one additional character, compared to
-            a regular closure.
-            Note that the action parameter is missing. When using the λ class, this action selector is always "action" so I extended
-            UIControl to add an overload of addTarget where "action" is the default action selector.
+            Add an event handler using the addAction:name:controlEvents: method added by λ.swift.
             */
-            button.addTarget(λ { self.greeting.text = "Hello, \(name)" }, forControlEvents: .TouchUpInside)
-            
-            /*
-            Next, I extended UIControl again to add a new method that takes a regular closure as it's final parameter, again to allow
-            for trailing closure syntax to be used. The method will wrap this closure with a λ object for us.
-            */
-            button.addActionForControlEvents(.TouchUpInside) {
-                self.greeting.text = "Hello, \(name)"
+            button.addAction(controlEvents: .TouchUpInside) {
+                self.greeting.text = "Hello \(name)"
             }
         }
     }
